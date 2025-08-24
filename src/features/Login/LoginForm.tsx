@@ -1,7 +1,7 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import Logo from 'assets/logo.png';
 import { login } from "./LoginSlice";
-import Logo from '../../assets/logo.png'
 type Inputs = {
   email: string
 }

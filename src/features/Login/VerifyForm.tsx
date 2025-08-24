@@ -1,8 +1,8 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { login } from "./LoginSlice";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { setCredentials } from "../auth/authSlice";
+import { login } from "./LoginSlice";
 type Inputs = {
   code: string
 }
