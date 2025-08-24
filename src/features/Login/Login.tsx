@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { LoginForm } from "./LoginForm";
 import { VerifyForm } from "./VerifyForm";
-import ImgLeft from '../../assets/img_bottom_left.png'
-import ImgRight from '../../assets/img_bottom_right.png'
+import ImgLeft from 'assets/img_bottom_left.png'
+import ImgRight from 'assets/img_bottom_right.png'
 
 export const Login = () => {
   const email = useSelector((state: any) => state.login.email);

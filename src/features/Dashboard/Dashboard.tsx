@@ -1,19 +1,25 @@
 import { useDispatch } from "react-redux";
 import { logout } from "../auth/authSlice";
-
-type Props = {
- 
-}
-export const Dashboard = ({}: Props) => {
+import Logo from 'assets/logo.png';
+import Menu from 'assets/img_menu.png'
+export const Dashboard = () => {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(logout())
-    
+
   }
   return ( 
-    <div>
-      Dashboard Page
-      <button onClick={handleLogout}>Logout</button>
+    <div className="wrap-dashboard">
+      <div className="wrap-header">
+        <div className="wrap-control">
+          <button className="wrap-menu"><img src={Menu} alt="" /></button>
+          <p className="wrap-img"><img src={Logo} alt="" /></p>
+        </div>
+        <button className="btn-logout" onClick={handleLogout}>Logout</button>
+      </div>
+      <div className="wrap-body">
+
+      </div>
     </div>
   );
 }
