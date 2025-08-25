@@ -1,13 +1,27 @@
-import { useState } from "react";
-import { PlanDetail } from "./PlanDetail";
+import { useEffect, useRef, useState } from "react";
+import { useDrop } from "react-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import { setOpen } from "../boardSlice";
+import { PlanDetail } from "./PlanDetail";
+import { TaskItem } from "./TaskItem";
 
 type Props = {
+  id: string;
   title: string;
   plans: string[];
+  onDrop: (plan: string, id: string) => void
 }
-export const Card = ({ title, plans }: Props) => {
+export const Card = ({ title, plans, id, onDrop }: Props) => {
+  const ref = useRef<HTMLUListElement>(null);
+  const [{ isOver }, dropRef] = useDrop(() => ({
+    accept: 'BOX',
+    drop: ({ plan }: { plan: string }) => {
+      onDrop(plan, id);
+    },
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+    }),
+  }));
   const dispatch = useDispatch();
   const [listPlan, setListPlan] = useState<String[]>(plans)
   const [isOpenAdd, setIsOpenAdd] = useState<boolean>(false)
@@ -22,16 +36,18 @@ export const Card = ({ title, plans }: Props) => {
   const handleOpenModal = () => {
     dispatch(setOpen(true))
   }
+  dropRef(ref)
+  useEffect(() => {
+    setListPlan(plans)
+  }, [plans])
   return (
     <div className="plan">
       <p className="ttl">{title}</p>
-      <ul className="list-task">
+      <ul className="list-task" ref={ref}>
         {
           listPlan && listPlan.length > 0 && listPlan.map((plan, index) => {
             return <li key={index}>
-              <button onClick={handleOpenModal}>
-                {plan}
-              </button>
+              <TaskItem handleOpenModal={handleOpenModal} plan={plan} />
             </li>
           })
         }
